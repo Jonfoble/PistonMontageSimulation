@@ -50,18 +50,11 @@ namespace PistonProject.Managers
 				time += Time.deltaTime;
 				yield return null;
 			}
-
-			part.position = snapPoint.position; // Ensure the part is exactly in position
-			part.rotation = snapPoint.rotation; // Ensure the part is exactly in rotation
+			part.position = snapPoint.position;
+			part.rotation = snapPoint.rotation; 
 			if (partSnapPoint != null)
 			{
 				partSnapPoint.isSnapped = true;
-			}
-
-			Collider partCollider = part.GetComponent<Collider>();
-			if (partCollider != null)
-			{
-				partCollider.enabled = false;
 			}
 		}
 	}

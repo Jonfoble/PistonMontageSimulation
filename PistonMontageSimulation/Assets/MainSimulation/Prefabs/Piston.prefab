@@ -111,6 +111,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: rod_bolt_2
+  isSnapped: 0
+--- !u!1 &366406940248252228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3428515250431546125}
+  - component: {fileID: 8877768353349398220}
+  m_Layer: 0
+  m_Name: WristPinSnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3428515250431546125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366406940248252228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.000628}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8711027327185664205}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8877768353349398220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366406940248252228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: wrist_pin
+  isSnapped: 0
 --- !u!1 &510483002265658139
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: rod_bolt_1
+  isSnapped: 0
 --- !u!1 &897485151754986504
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +301,9 @@ Transform:
   m_LocalPosition: {x: 0.0009805113, y: -0.41949823, z: -0.5097159}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6099741167527852910}
+  - {fileID: 9111956833205476856}
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -333,51 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: rod_cap
---- !u!1 &1054337787611806357
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5621100399402939325}
-  - component: {fileID: 8561107791971182658}
-  m_Layer: 0
-  m_Name: SnapPoint_1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5621100399402939325
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054337787611806357}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.000021, z: -0.000082}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9064704817842023236}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8561107791971182658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054337787611806357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapIdentifier: wrist_pin
+  isSnapped: 0
 --- !u!1 &1055244982739230522
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +495,145 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: wrist_pin
+  isSnapped: 0
+--- !u!1 &1519729002607047394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6099741167527852910}
+  - component: {fileID: 5365686332290280388}
+  m_Layer: 0
+  m_Name: BoltSnapPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6099741167527852910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519729002607047394}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.000342, y: 0, z: 0.000096}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2183418650642789063}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5365686332290280388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519729002607047394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: rod_bolt_1
+  isSnapped: 0
+--- !u!1 &3099494951393144693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7652473859473203394}
+  - component: {fileID: 5745173952854501086}
+  m_Layer: 0
+  m_Name: SnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7652473859473203394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099494951393144693}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.00013}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4500430671512316964}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5745173952854501086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099494951393144693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: rod_bearing_cap_side
+  isSnapped: 0
+--- !u!1 &3150437951298890457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2364844979567561801}
+  - component: {fileID: 3039528544355452265}
+  m_Layer: 0
+  m_Name: SnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2364844979567561801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150437951298890457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.00013}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7753776041781797682}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3039528544355452265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150437951298890457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: rod_bearing_rod_side
+  isSnapped: 0
 --- !u!1 &3574502430941376489
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +665,8 @@ Transform:
   m_LocalPosition: {x: 0.0009805113, y: -0.38555777, z: -0.5097186}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2364844979567561801}
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -600,6 +746,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: rod_bearing_cap_side
+  isSnapped: 0
+--- !u!1 &3719784539513916106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 244993650477516207}
+  - component: {fileID: 9103511335442110677}
+  m_Layer: 0
+  m_Name: PinClipSnapPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &244993650477516207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719784539513916106}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0003479, z: -0.000112}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9064704817842023236}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9103511335442110677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719784539513916106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: pin_clip_2
+  isSnapped: 0
 --- !u!1 &3896220423530319252
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,7 +846,6 @@ GameObject:
   - component: {fileID: 2865905235563941423}
   - component: {fileID: 5773728871303110156}
   - component: {fileID: 3872479618477262851}
-  - component: {fileID: 593742116626279181}
   m_Layer: 0
   m_Name: piston
   m_TagString: Draggable
@@ -673,7 +865,9 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5621100399402939325}
+  - {fileID: 4427728711168201452}
+  - {fileID: 3648143240757059888}
+  - {fileID: 244993650477516207}
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -740,19 +934,52 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00088900025, y: 0.00088900013, z: 0.0005065666}
   m_Center: {x: -0.0000000034197, y: 0.000000014595571, z: 9.749783e-10}
---- !u!114 &593742116626279181
+--- !u!1 &5626479337157467206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3648143240757059888}
+  - component: {fileID: 301474331195796072}
+  m_Layer: 0
+  m_Name: PinClipSnapPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3648143240757059888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5626479337157467206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0003479, z: -0.000112}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9064704817842023236}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &301474331195796072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4989224450127006673}
+  m_GameObject: {fileID: 5626479337157467206}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapIdentifier: piston
+  snapIdentifier: pin_clip_1
+  isSnapped: 0
 --- !u!1 &6363444415403123143
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,10 +1008,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6363444415403123143}
   m_LocalRotation: {x: 0.70710665, y: 0, z: -0, w: 0.7071069}
-  m_LocalPosition: {x: 0.0009805113, y: -0.3093, z: -0.5097186}
+  m_LocalPosition: {x: 0.0009805113, y: -0.34, z: -0.5097186}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7652473859473203394}
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -864,6 +1092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: rod_bearing_rod_side
+  isSnapped: 0
 --- !u!1 &7008510979232656328
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +1124,8 @@ Transform:
   m_LocalPosition: {x: 0.000984922, y: -0.24496858, z: -0.5096885}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3428515250431546125}
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -975,6 +1205,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: rod
+  isSnapped: 0
+--- !u!1 &7082651217702340334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4427728711168201452}
+  - component: {fileID: 8298281578103630276}
+  m_Layer: 0
+  m_Name: RodSnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4427728711168201452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082651217702340334}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -0.000733}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9064704817842023236}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8298281578103630276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082651217702340334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: rod
+  isSnapped: 0
 --- !u!1 &8135664279568047621
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1264,7 @@ GameObject:
   - component: {fileID: 8457283428016904776}
   - component: {fileID: 3990860604324690854}
   - component: {fileID: 1152025840772789842}
-  - component: {fileID: 207491612707929392}
+  - component: {fileID: 195945647175219619}
   m_Layer: 0
   m_Name: pin_clip_2
   m_TagString: Untagged
@@ -1073,7 +1350,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00018235385, y: 0.000009790663, z: 0.00017781224}
   m_Center: {x: -0.000000003426976, y: 8.890458e-18, z: 0}
---- !u!114 &207491612707929392
+--- !u!114 &195945647175219619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1086,6 +1363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: pin_clip_2
+  isSnapped: 0
 --- !u!1 &8547217604136903968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1376,7 @@ GameObject:
   - component: {fileID: 3496470795929243735}
   - component: {fileID: 7264897340756854724}
   - component: {fileID: 1723708835197346225}
-  - component: {fileID: 5589302781608567630}
+  - component: {fileID: 2009705118224715509}
   m_Layer: 0
   m_Name: pin_clip_1
   m_TagString: Untagged
@@ -1184,7 +1462,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00018235385, y: 0.000009790663, z: 0.00017781224}
   m_Center: {x: -0.000000003426976, y: 0.000000007450581, z: 0}
---- !u!114 &5589302781608567630
+--- !u!114 &2009705118224715509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1197,3 +1475,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: pin_clip_1
+  isSnapped: 0
+--- !u!1 &8832385599934787222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9111956833205476856}
+  - component: {fileID: 8410260820234248231}
+  m_Layer: 0
+  m_Name: BoltSnapPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9111956833205476856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832385599934787222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.000328, y: -0, z: 0.0001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2183418650642789063}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8410260820234248231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832385599934787222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: rod_bolt_2
+  isSnapped: 0
