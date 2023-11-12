@@ -33,15 +33,19 @@ namespace PistonProject.Managers
 			if (TryGetTarget(out RaycastHit hit, "Draggable"))
 			{
 				SetDraggableObject(hit.transform);
+				isDragging = true;
 			}
 		}
 
 		public void MoveObject()
 		{
+			if (isRotating)
+			{
+				return;
+			}
 			if (objectToDrag != null)
 			{
 				Vector3 worldPosition = GetMouseWorldPosition() + offset;
-				// Move the root object if part of an assembly to move all connected parts
 				Transform objectToMove = objectToDrag.root == objectToDrag ? objectToDrag : objectToDrag.root;
 				objectToMove.position = worldPosition;
 			}
@@ -69,7 +73,7 @@ namespace PistonProject.Managers
 
 		public void BeginRotate()
 		{
-			if (TryGetTarget(out RaycastHit hit, "Draggable"))
+			if (TryGetTarget(out RaycastHit hit, "Draggable") && !isDragging)
 			{
 				objectToDrag = hit.transform;
 				isRotating = true;
@@ -83,7 +87,7 @@ namespace PistonProject.Managers
 			if (objectToDrag != null)
 			{
 				Vector2 mouseDelta = Mouse.current.delta.ReadValue();
-				// Rotate the root object if part of an assembly to rotate all connected parts
+				// rotate all connected parts
 				Transform objectToRotate = objectToDrag.root == objectToDrag ? objectToDrag : objectToDrag.root;
 				ApplyRotation(objectToRotate, -mouseDelta.x, mouseDelta.y);
 			}
@@ -101,17 +105,14 @@ namespace PistonProject.Managers
 		private void SetDraggableObject(Transform target)
 		{
 			SnapPoint partSnapPoint = target.GetComponent<SnapPoint>();
-			if (partSnapPoint != null && partSnapPoint.isSnapped)
+			if (partSnapPoint != null)
 			{
-				// If part is snapped and is not the root, then it's part of an assembly
 				if (target.root != target)
 				{
-					// Select the root to move the entire assembly
 					objectToDrag = target.root;
 				}
 				else
 				{
-					// If it's the root, we're moving a single part or the whole assembly
 					objectToDrag = target;
 				}
 			}
@@ -126,7 +127,7 @@ namespace PistonProject.Managers
 				offset = objectToDrag.position - GetMouseWorldPosition();
 				objectRenderer = objectToDrag.GetComponent<Renderer>();
 				originalColor = objectRenderer.material.color;
-				objectRenderer.material.color = Color.yellow; // Highlight the object
+				objectRenderer.material.color = Color.blue; // Highlight the object
 				isDragging = true;
 			}
 		}
@@ -156,7 +157,6 @@ namespace PistonProject.Managers
 			objectToRotate.Rotate(mainCamera.transform.up, rotationX, Space.World);
 			objectToRotate.Rotate(mainCamera.transform.right, rotationY, Space.World);
 		}
-
 		#endregion
 	}
 }

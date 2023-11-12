@@ -6,13 +6,20 @@ namespace PistonProject.Managers
 {
 	public class SnappingManager : Singleton<SnappingManager>
 	{
+
 		public float snapDistance = 0.5f;
 		public GameObject[] snapPoints; // All the snap points
 
 		private Transform selectedPart; // The part selected for potential disassembly
+		private string partIdentifierOfSelectedPart;
 
 		public void TrySnap(Transform part, string partIdentifier)
 		{
+			if (!AssemblyManager.Instance.CanPartBeAssembled(partIdentifier))
+			{
+				Debug.Log("Cannot Snap This Part Yet");
+				return; // Cannot snap this part yet
+			}
 			float closestDistance = float.MaxValue;
 			Transform targetSnapPoint = null;
 
@@ -30,7 +37,6 @@ namespace PistonProject.Managers
 					}
 				}
 			}
-
 			// If a valid snap point is found snap the part
 			if (targetSnapPoint != null)
 			{
@@ -39,15 +45,21 @@ namespace PistonProject.Managers
 				AssemblyManager.Instance.SetPartAssembled(partIdentifier, true);
 			}
 		}
-
+		public void TryUnSnap()
+		{
+			TryUnsnap(selectedPart, partIdentifierOfSelectedPart);
+		}
 		public void TryUnsnap(Transform part, string partIdentifier)
 		{
 			SnapPoint partSnapPoint = part.GetComponent<SnapPoint>();
 			if (partSnapPoint != null && partSnapPoint.isSnapped)
 			{
-				StartCoroutine(UnsnapPartFromPosition(part, partSnapPoint));
-				part.SetParent(null); // Remove the parent
-				AssemblyManager.Instance.SetPartAssembled(partIdentifier, false);
+				if (AssemblyManager.Instance.CanPartBeDisassembled(partIdentifier))
+				{
+					StartCoroutine(UnsnapPartFromPosition(part, partSnapPoint));
+					part.SetParent(null); // Remove the parent
+					AssemblyManager.Instance.SetPartAssembled(partIdentifier, false);
+				}
 			}
 		}
 
@@ -87,22 +99,19 @@ namespace PistonProject.Managers
 				time += Time.deltaTime;
 				yield return null;
 			}
-
-			
 			partSnapPoint.isSnapped = false;
 		}
 
 		public void SelectPart()
 		{
-			
 			Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit))
 			{
-				// Check if the hit object has the SnapPoint component
 				SnapPoint snapPoint = hit.transform.GetComponent<SnapPoint>();
 				if (snapPoint != null)
 				{
+					partIdentifierOfSelectedPart = snapPoint.snapIdentifier;
 					selectedPart = hit.transform;
 				}
 			}

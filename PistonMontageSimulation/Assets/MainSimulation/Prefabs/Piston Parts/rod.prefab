@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 6482132840012456903}
   - component: {fileID: 631725352977802045}
   - component: {fileID: 8467015380254061782}
-  - component: {fileID: 8541625270429845428}
+  - component: {fileID: 2504704778549207102}
   - component: {fileID: 8204649804353363670}
   m_Layer: 0
   m_Name: rod
@@ -226,7 +226,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8541625270429845428
+--- !u!65 &2504704778549207102
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,8 +237,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0007715493, y: 0.00030541123, z: 0.0015290821}
-  m_Center: {x: -0.0000000040308805, y: 2.9831423e-10, z: 2.1196503e-24}
+  m_Size: {x: 0.0007715493, y: 0.0003054112, z: 0.0015290821}
+  m_Center: {x: -3.0559022e-10, y: 2.9831423e-10, z: 0}
 --- !u!114 &8204649804353363670
 MonoBehaviour:
   m_ObjectHideFlags: 0
