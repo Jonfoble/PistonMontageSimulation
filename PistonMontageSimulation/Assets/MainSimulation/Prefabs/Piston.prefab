@@ -304,6 +304,7 @@ Transform:
   m_Children:
   - {fileID: 6099741167527852910}
   - {fileID: 9111956833205476856}
+  - {fileID: 6389739457727138099}
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -542,7 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snapIdentifier: rod_bolt_1
   isSnapped: 0
---- !u!1 &3099494951393144693
+--- !u!1 &2763044361224497841
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -550,89 +551,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7652473859473203394}
-  - component: {fileID: 5745173952854501086}
+  - component: {fileID: 7567902886524072003}
+  - component: {fileID: 3510781644426063932}
   m_Layer: 0
-  m_Name: SnapPoint
+  m_Name: RodCapSnapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7652473859473203394
+--- !u!4 &7567902886524072003
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3099494951393144693}
+  m_GameObject: {fileID: 2763044361224497841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.00013}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00083}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4500430671512316964}
-  m_RootOrder: 0
+  m_Father: {fileID: 8711027327185664205}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5745173952854501086
+--- !u!114 &3510781644426063932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3099494951393144693}
+  m_GameObject: {fileID: 2763044361224497841}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapIdentifier: rod_bearing_cap_side
-  isSnapped: 0
---- !u!1 &3150437951298890457
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2364844979567561801}
-  - component: {fileID: 3039528544355452265}
-  m_Layer: 0
-  m_Name: SnapPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2364844979567561801
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3150437951298890457}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.00013}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7753776041781797682}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3039528544355452265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3150437951298890457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapIdentifier: rod_bearing_rod_side
+  snapIdentifier: rod_cap
   isSnapped: 0
 --- !u!1 &3574502430941376489
 GameObject:
@@ -665,8 +620,7 @@ Transform:
   m_LocalPosition: {x: 0.0009805113, y: -0.38555777, z: -0.5097186}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2364844979567561801}
+  m_Children: []
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -793,6 +747,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snapIdentifier: pin_clip_2
   isSnapped: 0
+--- !u!1 &3755809651085147528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4404261014107669158}
+  - component: {fileID: 3187577484382300980}
+  m_Layer: 0
+  m_Name: RodBearingRodSideSnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4404261014107669158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3755809651085147528}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000619}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8711027327185664205}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &3187577484382300980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3755809651085147528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: rod_bearing_rod_side
+  isSnapped: 0
 --- !u!1 &3896220423530319252
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,6 +846,7 @@ GameObject:
   - component: {fileID: 2865905235563941423}
   - component: {fileID: 5773728871303110156}
   - component: {fileID: 3872479618477262851}
+  - component: {fileID: 2321792903306853736}
   m_Layer: 0
   m_Name: piston
   m_TagString: Draggable
@@ -934,6 +935,66 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00088900025, y: 0.00088900013, z: 0.0005065666}
   m_Center: {x: -0.0000000034197, y: 0.000000014595571, z: 9.749783e-10}
+--- !u!114 &2321792903306853736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4989224450127006673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: piston
+  isSnapped: 0
+--- !u!1 &5147015426746157944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6389739457727138099}
+  - component: {fileID: 1332540244911246943}
+  m_Layer: 0
+  m_Name: RodBearingCapSideSnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6389739457727138099
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147015426746157944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -0.000024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2183418650642789063}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1332540244911246943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147015426746157944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: rod_bearing_cap_side
+  isSnapped: 0
 --- !u!1 &5626479337157467206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,8 +1072,7 @@ Transform:
   m_LocalPosition: {x: 0.0009805113, y: -0.34, z: -0.5097186}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7652473859473203394}
+  m_Children: []
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1126,6 +1186,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3428515250431546125}
+  - {fileID: 7567902886524072003}
+  - {fileID: 4404261014107669158}
   m_Father: {fileID: 4420836610947798830}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

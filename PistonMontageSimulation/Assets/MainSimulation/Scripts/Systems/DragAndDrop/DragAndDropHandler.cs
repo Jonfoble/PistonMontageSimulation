@@ -38,9 +38,13 @@ namespace PistonProject.Managers
 
 		public void MoveObject()
 		{
-			Vector3 worldPosition = GetMouseWorldPosition() + offset;
-			objectToDrag.position = worldPosition;
-			TrySnapObject(objectToDrag);
+			if (objectToDrag != null)
+			{
+				Vector3 worldPosition = GetMouseWorldPosition() + offset;
+				// Move the root object if part of an assembly to move all connected parts
+				Transform objectToMove = objectToDrag.root == objectToDrag ? objectToDrag : objectToDrag.root;
+				objectToMove.position = worldPosition;
+			}
 		}
 
 		public void EndDrag()
@@ -48,6 +52,12 @@ namespace PistonProject.Managers
 			if (objectToDrag != null)
 			{
 				objectRenderer.material.color = originalColor; // Restore the original color
+															   // Try to snap it into place when released
+				SnapPoint snapPoint = objectToDrag.GetComponent<SnapPoint>();
+				if (snapPoint != null)
+				{
+					SnappingManager.Instance.TrySnap(objectToDrag, snapPoint.snapIdentifier);
+				}
 				objectToDrag = null;
 			}
 			isDragging = false;
@@ -70,9 +80,13 @@ namespace PistonProject.Managers
 		{
 			if (isDragging) return;
 
-			Vector2 mouseDelta = Mouse.current.delta.ReadValue();
-			ApplyRotation(-mouseDelta.x, mouseDelta.y);
-			TrySnapObject(objectToDrag);
+			if (objectToDrag != null)
+			{
+				Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+				// Rotate the root object if part of an assembly to rotate all connected parts
+				Transform objectToRotate = objectToDrag.root == objectToDrag ? objectToDrag : objectToDrag.root;
+				ApplyRotation(objectToRotate, -mouseDelta.x, mouseDelta.y);
+			}
 		}
 
 		public void EndRotate()
@@ -87,14 +101,34 @@ namespace PistonProject.Managers
 		private void SetDraggableObject(Transform target)
 		{
 			SnapPoint partSnapPoint = target.GetComponent<SnapPoint>();
-			if (partSnapPoint == null || partSnapPoint.isSnapped) return;
+			if (partSnapPoint != null && partSnapPoint.isSnapped)
+			{
+				// If part is snapped and is not the root, then it's part of an assembly
+				if (target.root != target)
+				{
+					// Select the root to move the entire assembly
+					objectToDrag = target.root;
+				}
+				else
+				{
+					// If it's the root, we're moving a single part or the whole assembly
+					objectToDrag = target;
+				}
+			}
+			else if (partSnapPoint == null)
+			{
+				// If it doesn't have a SnapPoint, it's a free part
+				objectToDrag = target;
+			}
 
-			objectToDrag = target;
-			offset = objectToDrag.position - GetMouseWorldPosition();
-			objectRenderer = objectToDrag.GetComponent<Renderer>();
-			originalColor = objectRenderer.material.color;
-			objectRenderer.material.color = Color.yellow; // Highlight the object
-			isDragging = true;
+			if (objectToDrag != null)
+			{
+				offset = objectToDrag.position - GetMouseWorldPosition();
+				objectRenderer = objectToDrag.GetComponent<Renderer>();
+				originalColor = objectRenderer.material.color;
+				objectRenderer.material.color = Color.yellow; // Highlight the object
+				isDragging = true;
+			}
 		}
 
 		private bool TryGetTarget(out RaycastHit hit, string tag)
@@ -115,22 +149,14 @@ namespace PistonProject.Managers
 			return mainCamera.ScreenToWorldPoint(mousePosition);
 		}
 
-		private void ApplyRotation(float rotationX, float rotationY)
+		private void ApplyRotation(Transform objectToRotate, float rotationX, float rotationY)
 		{
 			rotationX *= rotationSpeed * Time.deltaTime;
 			rotationY *= rotationSpeed * Time.deltaTime;
-			objectToDrag.Rotate(mainCamera.transform.up, rotationX, Space.World);
-			objectToDrag.Rotate(mainCamera.transform.right, rotationY, Space.World);
+			objectToRotate.Rotate(mainCamera.transform.up, rotationX, Space.World);
+			objectToRotate.Rotate(mainCamera.transform.right, rotationY, Space.World);
 		}
 
-		private void TrySnapObject(Transform objectToTrySnap)
-		{
-			SnapPoint snapPoint = objectToTrySnap.GetComponent<SnapPoint>();
-			if (snapPoint != null)
-			{
-				SnappingManager.Instance.TrySnap(objectToTrySnap, snapPoint.snapIdentifier);
-			}
-		}
 		#endregion
 	}
 }
