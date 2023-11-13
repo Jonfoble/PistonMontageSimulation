@@ -8,7 +8,7 @@ namespace PistonProject.Managers
 	public class AssemblyManager : Singleton<AssemblyManager>
 	{
 		[SerializeField] private List<AssemblyStep> assemblySteps;
-		public UnityEvent onAssemblyComplete;
+		[HideInInspector] public UnityEvent onAssemblyComplete;
 
 		private void Awake()
 		{
