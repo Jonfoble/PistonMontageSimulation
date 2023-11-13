@@ -16,7 +16,6 @@ namespace PistonProject.Managers
 		{
 			assemblySteps = new List<AssemblyStep>();
 			SetupAssemblySteps();
-
 		}
 		private void SetupAssemblySteps()
 		{
@@ -34,18 +33,27 @@ namespace PistonProject.Managers
 
 			// Define mandatory and forbidden assemblies
 			rod.AddForbiddenAssembly(wrist_pin);
+			// Define forbidden disassemblies: rod cannot be disassembled if wrist_pin is assembled
+			rod.AddForbiddenDisassembly(wrist_pin);
 
+			// Define forbidden assemblies and disassemblies for wrist_pin
 			wrist_pin.AddForbiddenAssembly(pin_clip_1);
 			wrist_pin.AddForbiddenAssembly(pin_clip_2);
+			// wrist_pin cannot be disassembled if pin_clip_1 or pin_clip_2 are assembled
+			wrist_pin.AddForbiddenDisassembly(pin_clip_1);
+			wrist_pin.AddForbiddenDisassembly(pin_clip_2);
 
+			// Define mandatory assemblies for pin_clips
 			pin_clip_1.AddMandatoryAssembly(wrist_pin);
 			pin_clip_2.AddMandatoryAssembly(wrist_pin);
 
+			// Define forbidden assemblies and disassemblies for rod_cap
 			rod_cap.AddForbiddenAssembly(rod_bolt_1);
 			rod_cap.AddForbiddenAssembly(rod_bolt_2);
 
-			rod_bolt_1.AddMandatoryAssembly(rod_cap);
-			rod_bolt_2.AddMandatoryAssembly(rod_cap);
+			// rod_cap cannot be disassembled if rod_bolt_1 or rod_bolt_2 are assembled
+			rod_cap.AddForbiddenDisassembly(rod_bolt_1);
+			rod_cap.AddForbiddenDisassembly(rod_bolt_2);
 
 			// Add the steps to the list
 			assemblySteps.Add(piston);
@@ -59,6 +67,7 @@ namespace PistonProject.Managers
 			assemblySteps.Add(rod_bolt_2);
 			assemblySteps.Add(rod_cap);
 		}
+
 		public void SetPartAssembled(string partIdentifier, bool isAssembled)
 		{
 			var step = assemblySteps.Find(x => x.PartIdentifier == partIdentifier);
@@ -99,20 +108,26 @@ namespace PistonProject.Managers
 		}
 		public bool CanPartBeDisassembled(string partIdentifier)
 		{
-			var step = assemblySteps.Find(x => x.PartIdentifier == partIdentifier);
-			if (step != null && step.IsCompleted)
+			// Find the assembly step for the part we want to disassemble.
+			var stepToDisassemble = assemblySteps.Find(x => x.PartIdentifier == partIdentifier);
+			if (stepToDisassemble != null && stepToDisassemble.IsCompleted)
 			{
-				// Check if disassembling this part would violate any forbidden rules
-				foreach (var otherStep in assemblySteps)
+				// Check if disassembling this part is forbidden due to other parts being assembled.
+				foreach (var forbiddenDisassembly in stepToDisassemble.DisassembliesForbidden)
 				{
-					if (otherStep.AssembliesForbidden.Contains(step) && otherStep.IsCompleted)
+					if (IsPartAssembled(forbiddenDisassembly.PartIdentifier))
 					{
-						return false; // Cannot disassemble this part because it would violate a forbidden rule
+						// If a part that forbids disassembly of this part is assembled, then disassembly is not allowed.
+						return false;
 					}
 				}
-				return true; // Can disassemble this part
+
+				// If none of the disassembly conditions are violated, allow disassembly.
+				return true;
 			}
-			return false; // Part not found or not assembled
+
+			// If the part is not found or not assembled, it can't be disassembled.
+			return false;
 		}
 	}
 }

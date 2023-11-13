@@ -103,8 +103,8 @@ GameObject:
   - component: {fileID: 1903958816504151498}
   - component: {fileID: 4640335809775769761}
   - component: {fileID: 3999216967289227394}
-  - component: {fileID: 5917090853100854925}
   - component: {fileID: 5159118761314069478}
+  - component: {fileID: 7744909247258876543}
   m_Layer: 0
   m_Name: piston
   m_TagString: Draggable
@@ -181,19 +181,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5917090853100854925
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2494216022648593759}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.00088900025, y: 0.00088900013, z: 0.0005065666}
-  m_Center: {x: -0.0000000034197, y: 0.000000014595571, z: 9.749783e-10}
 --- !u!114 &5159118761314069478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +195,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snapIdentifier: piston
   isSnapped: 0
+--- !u!65 &7744909247258876543
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2494216022648593759}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0008890004, y: 0.0007719957, z: 0.00024159523}
+  m_Center: {x: 2.9774172e-10, y: 0.000013898829, z: 0.00013248611}
 --- !u!1 &3005361448287570632
 GameObject:
   m_ObjectHideFlags: 0

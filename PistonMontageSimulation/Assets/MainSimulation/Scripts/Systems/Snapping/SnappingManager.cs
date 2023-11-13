@@ -7,8 +7,8 @@ namespace PistonProject.Managers
 	public class SnappingManager : Singleton<SnappingManager>
 	{
 
-		public float snapDistance = 0.5f;
-		public GameObject[] snapPoints; // All the snap points
+		[SerializeField] private float snapDistance = 0.5f;
+		[SerializeField] private GameObject[] snapPoints; // All the snap points
 
 		private Transform selectedPart; // The part selected for potential disassembly
 		private string partIdentifierOfSelectedPart;
@@ -51,17 +51,22 @@ namespace PistonProject.Managers
 		}
 		public void TryUnsnap(Transform part, string partIdentifier)
 		{
+			Debug.Log("Trying to Unsnap");
 			SnapPoint partSnapPoint = part.GetComponent<SnapPoint>();
 			if (partSnapPoint != null && partSnapPoint.isSnapped)
 			{
-				if (AssemblyManager.Instance.CanPartBeDisassembled(partIdentifier))
+				// Check if the part can be disassembled
+				if (!AssemblyManager.Instance.CanPartBeDisassembled(partIdentifier))
 				{
-					StartCoroutine(UnsnapPartFromPosition(part, partSnapPoint));
-					part.SetParent(null); // Remove the parent
-					AssemblyManager.Instance.SetPartAssembled(partIdentifier, false);
+					Debug.Log("Cannot Unsnap This Part: Forbidden Assembly Condition");
+					return; // Cannot unsnap this part due to a forbidden condition
 				}
+				StartCoroutine(UnsnapPartFromPosition(part, partSnapPoint));
+				part.SetParent(null); // Remove the parent
+				AssemblyManager.Instance.SetPartAssembled(partIdentifier, false);
 			}
 		}
+
 
 		private IEnumerator SnapPartToPosition(Transform part, Transform snapPoint)
 		{

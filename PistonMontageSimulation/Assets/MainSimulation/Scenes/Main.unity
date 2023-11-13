@@ -662,10 +662,16 @@ MonoBehaviour:
   - {fileID: 5147015427693732767}
   - {fileID: 3755809652569478511}
   - {fileID: 2763044362154951254}
+  - {fileID: 2010813922}
   - {fileID: 366406940927391651}
   - {fileID: 3719784540462211629}
   - {fileID: 5626479338088199329}
   - {fileID: 7082651216754781705}
+--- !u!1 &2010813922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2484352132230637985, guid: b96fe47b73b253f4fa8f867153515a5d, type: 3}
+  m_PrefabInstance: {fileID: 7467097330236784233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &366406940927391651 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2595020484289823822, guid: 7030e49016d2ae94d9d87d73c5a8b060, type: 3}
@@ -1296,6 +1302,10 @@ PrefabInstance:
     - target: {fileID: 2494216022648593759, guid: b96fe47b73b253f4fa8f867153515a5d, type: 3}
       propertyPath: m_Name
       value: piston
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159118761314069478, guid: b96fe47b73b253f4fa8f867153515a5d, type: 3}
+      propertyPath: isSnapped
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b96fe47b73b253f4fa8f867153515a5d, type: 3}
