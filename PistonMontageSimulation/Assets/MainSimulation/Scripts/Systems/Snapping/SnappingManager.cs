@@ -17,7 +17,6 @@ namespace PistonProject.Managers
 		{
 			if (!AssemblyManager.Instance.CanPartBeAssembled(partIdentifier))
 			{
-				Debug.Log("Cannot Snap This Part Yet");
 				return; // Cannot snap this part yet
 			}
 			float closestDistance = float.MaxValue;
@@ -51,14 +50,12 @@ namespace PistonProject.Managers
 		}
 		public void TryUnsnap(Transform part, string partIdentifier)
 		{
-			Debug.Log("Trying to Unsnap");
 			SnapPoint partSnapPoint = part.GetComponent<SnapPoint>();
 			if (partSnapPoint != null && partSnapPoint.isSnapped)
 			{
 				// Check if the part can be disassembled
 				if (!AssemblyManager.Instance.CanPartBeDisassembled(partIdentifier))
 				{
-					Debug.Log("Cannot Unsnap This Part: Forbidden Assembly Condition");
 					return; // Cannot unsnap this part due to a forbidden condition
 				}
 				StartCoroutine(UnsnapPartFromPosition(part, partSnapPoint));
