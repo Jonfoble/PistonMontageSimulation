@@ -1,12 +1,12 @@
 using PistonProject.Managers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Required for scene management
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-	public TextMeshProUGUI assemblyCompleteText; // Assign this in the inspector
-	public GameObject restartButton; // Assign a panel to show when the game is paused
+	public TextMeshProUGUI assemblyCompleteText; 
+	public GameObject restartButton;
 
 	private void OnEnable()
 	{
@@ -23,21 +23,18 @@ public class UIManager : MonoBehaviour
 
 	private void OnAssemblyComplete()
 	{
-		// Show the assembly complete message and pause the game
 		assemblyCompleteText.gameObject.SetActive(true);
 		if (restartButton != null)
 			restartButton.SetActive(true); // Show the pause panel
 	}
 
-	// Call this method when the reset button is pressed
 	public void ResetGame()
 	{
-		// Hide the assembly complete message and resume the game
 		assemblyCompleteText.gameObject.SetActive(false);
 		if (restartButton != null)
 			restartButton.SetActive(false); // Hide the pause panel
 
-		// Reset the game state or reload the scene
+		// Reset the game
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

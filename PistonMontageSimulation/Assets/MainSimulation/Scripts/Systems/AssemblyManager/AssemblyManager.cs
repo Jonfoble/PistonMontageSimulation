@@ -137,7 +137,7 @@ namespace PistonProject.Managers
 		private void CheckAssemblyComplete()
 		{
 			Debug.Log("CheckAssemblyComplete");
-			// If all parts are assembled, invoke the onAssemblyComplete event
+			// If all parts are assembled
 			if (assemblySteps.All(step => step.IsCompleted))
 			{
 				onAssemblyComplete?.Invoke();
