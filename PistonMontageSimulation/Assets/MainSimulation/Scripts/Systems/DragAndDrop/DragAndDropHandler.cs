@@ -38,16 +38,17 @@ namespace PistonProject.Managers
 
 		public void MoveObject()
 		{
-			if (isRotating)
+			if (isRotating || objectToDrag == null)
 			{
 				return;
 			}
-			if (objectToDrag != null)
-			{
-				Vector3 worldPosition = GetMouseWorldPosition() + offset;
-				Transform objectToMove = objectToDrag.root == objectToDrag ? objectToDrag : objectToDrag.root;
-				objectToMove.position = worldPosition;
-			}
+
+			Vector3 worldPosition = GetMouseWorldPosition() + offset;
+			Transform objectToMove = objectToDrag.root == objectToDrag ? objectToDrag : objectToDrag.root;
+			objectToMove.position = worldPosition;
+
+			// Check proximity and enable/disable silhouettes
+			UpdateSilhouetteDisplay(objectToDrag);
 		}
 
 		public void EndDrag()
@@ -161,6 +162,59 @@ namespace PistonProject.Managers
 			objectToRotate.Rotate(mainCamera.transform.up, rotationX, Space.World);
 			objectToRotate.Rotate(mainCamera.transform.right, rotationY, Space.World);
 		}
+		private void UpdateSilhouetteDisplay(Transform part)
+		{
+			float closestDistance = float.MaxValue;
+			Outlinable closestOutlinable = null;
+			MeshRenderer closestMeshRenderer = null; // Add a reference to the MeshRenderer
+			string partIdentifier = part.GetComponent<SnapPoint>()?.snapIdentifier;
+
+			foreach (GameObject snapPointObj in SnappingManager.Instance.snapPoints)
+			{
+				SnapPoint snapPoint = snapPointObj.GetComponent<SnapPoint>();
+				Outlinable outlinable = snapPointObj.GetComponent<Outlinable>();
+				MeshRenderer meshRenderer = snapPointObj.GetComponentInChildren<MeshRenderer>();
+
+				if (snapPoint.snapIdentifier == partIdentifier)
+				{
+					float distance = Vector3.Distance(part.position, snapPoint.transform.position);
+
+					bool withinRange = distance < SnappingManager.Instance.snapDistance;
+					bool canAssemble = AssemblyManager.Instance.CanPartBeAssembled(partIdentifier);
+
+					if (withinRange && canAssemble)
+					{
+						if (closestOutlinable == null || distance < closestDistance)
+						{
+							closestDistance = distance;
+							closestOutlinable = outlinable;
+							closestMeshRenderer = meshRenderer;
+						}
+					}
+
+					// Reset silhouettes for snap points that are not the closest
+					if (outlinable != null && outlinable != closestOutlinable)
+					{
+						outlinable.enabled = false;
+					}
+					if (meshRenderer != null && meshRenderer != closestMeshRenderer)
+					{
+						meshRenderer.enabled = false;
+					}
+				}
+			}
+
+			// Enable the silhouette of the closest snap point
+			if (closestOutlinable != null && closestMeshRenderer != null)
+			{
+				closestOutlinable.enabled = true;
+				closestMeshRenderer.enabled = true;
+			}
+		}
+
+
 		#endregion
+
+
 	}
 }

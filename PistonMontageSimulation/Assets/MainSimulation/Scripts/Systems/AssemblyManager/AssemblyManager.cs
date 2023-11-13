@@ -125,7 +125,7 @@ namespace PistonProject.Managers
 						return false;
 					}
 				}
-				// If none of the disassembly conditions are violated, allow disassembly.
+				// Allow disassembly.
 				return true;
 			}
 			// If the part is not found or not assembled, it can't be disassembled.

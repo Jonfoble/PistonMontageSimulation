@@ -21,7 +21,6 @@ public class UIManager : MonoBehaviour
 	private void OnEnable()
 	{
 		AssemblyManager.Instance.onAssemblyComplete.AddListener(OnAssemblyComplete);
-		
 	}
 
 	private void OnDisable()

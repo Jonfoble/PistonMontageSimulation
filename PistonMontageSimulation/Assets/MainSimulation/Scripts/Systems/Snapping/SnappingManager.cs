@@ -8,8 +8,8 @@ namespace PistonProject.Managers
 	public class SnappingManager : Singleton<SnappingManager>
 	{
 
-		[SerializeField] private float snapDistance = 0.5f;
-		[SerializeField] private GameObject[] snapPoints; // All the snap points
+		public float snapDistance = 0.5f;
+		public GameObject[] snapPoints; // All the snap points
 		[SerializeField] private float errorDisplayTime = 0.5f; // How long to display the error color
 		private Coroutine errorFeedbackCoroutine;
 
@@ -19,34 +19,46 @@ namespace PistonProject.Managers
 
 		public void TrySnap(Transform part, string partIdentifier)
 		{
-			if (!AssemblyManager.Instance.CanPartBeAssembled(partIdentifier))
-			{
-				errorFeedbackCoroutine = StartCoroutine(ShowErrorFeedback(part)); // Show visual feedback for error
-				return; // Cannot snap this part yet
-			}
 			float closestDistance = float.MaxValue;
 			Transform targetSnapPoint = null;
+			Outlinable closestOutlinable = null;
 
 			// Iterate over all snap points to find the closest one
 			foreach (GameObject snapPointObj in snapPoints)
 			{
 				SnapPoint snapPoint = snapPointObj.GetComponent<SnapPoint>();
+				Outlinable outlinable = snapPointObj.GetComponent<Outlinable>();
+
 				if (snapPoint.snapIdentifier == partIdentifier)
 				{
 					float distance = Vector3.Distance(part.position, snapPoint.transform.position);
 					if (distance < snapDistance && distance < closestDistance)
 					{
 						closestDistance = distance;
+						closestOutlinable = outlinable;
 						targetSnapPoint = snapPoint.transform;
 					}
 				}
 			}
-			// If a valid snap point is found snap the part
-			if (targetSnapPoint != null)
+
+			// Only enable the silhouette if the part is eligible for assembly
+			if (AssemblyManager.Instance.CanPartBeAssembled(partIdentifier))
 			{
-				StartCoroutine(SnapPartToPosition(part, targetSnapPoint));
-				part.SetParent(targetSnapPoint); // Set the parent to the snap point
-				AssemblyManager.Instance.SetPartAssembled(partIdentifier, true);
+				if (closestOutlinable != null && targetSnapPoint != null)
+				{
+					closestOutlinable.enabled = true;
+					StartCoroutine(SnapPartToPosition(part, targetSnapPoint, closestOutlinable));
+					part.SetParent(targetSnapPoint); // Set the parent to the snap point
+					AssemblyManager.Instance.SetPartAssembled(partIdentifier, true);
+				}
+			}
+			else
+			{
+				if (closestOutlinable != null)
+				{
+					// Part is close enough but assembly is forbidden, so do not enable silhouette
+					closestOutlinable.enabled = false;
+				}
 			}
 		}
 		public void TryUnSnap()
@@ -67,18 +79,17 @@ namespace PistonProject.Managers
 				StartCoroutine(UnsnapPartFromPosition(part, partSnapPoint));
 				part.SetParent(null); // Remove the parent
 				AssemblyManager.Instance.SetPartAssembled(partIdentifier, false);
+
 			}
 		}
-
-
-		private IEnumerator SnapPartToPosition(Transform part, Transform snapPoint)
+		private IEnumerator SnapPartToPosition(Transform part, Transform snapPoint, Outlinable outlinable)
 		{
 			SnapPoint partSnapPoint = part.GetComponent<SnapPoint>();
 
 			float time = 0f;
 			Vector3 startPosition = part.position;
 			Quaternion startRotation = part.rotation;
-			float duration = 0.5f; 
+			float duration = 0.5f;
 
 			while (time < duration)
 			{
@@ -91,14 +102,21 @@ namespace PistonProject.Managers
 			part.position = snapPoint.position;
 			part.rotation = snapPoint.rotation;
 			partSnapPoint.isSnapped = true;
+			if (outlinable != null) outlinable.enabled = false;
+
+			MeshRenderer snapPointRenderer = snapPoint.GetComponent<MeshRenderer>();
+			if (snapPointRenderer != null)
+			{
+				snapPointRenderer.enabled = false;
+			}
 		}
 
 		private IEnumerator UnsnapPartFromPosition(Transform part, SnapPoint partSnapPoint)
 		{
 			float time = 0f;
-			Vector3 endPosition = part.position + new Vector3(0.1f, 0, 0); 
+			Vector3 endPosition = part.position + new Vector3(0.1f, 0, 0);
 			Quaternion endRotation = part.rotation;
-			float duration = 0.5f; 
+			float duration = 0.5f;
 
 			while (time < duration)
 			{
@@ -124,6 +142,54 @@ namespace PistonProject.Managers
 				}
 			}
 		}
+		public void UpdateSnapPointOutlines(Transform part, string partIdentifier)
+		{
+			float closestDistance = float.MaxValue;
+			GameObject closestSnapPoint = null;
+
+			// Iterate over all snap points to find the closest one and their Outlinable component
+			foreach (GameObject snapPointObj in snapPoints)
+			{
+				SnapPoint snapPoint = snapPointObj.GetComponent<SnapPoint>();
+				Outlinable outlinable = snapPointObj.GetComponent<Outlinable>();
+				MeshRenderer meshRenderer = snapPointObj.GetComponent<MeshRenderer>(); // Ensure the snap points have MeshRenderers
+
+				if (snapPoint.snapIdentifier == partIdentifier)
+				{
+					float distance = Vector3.Distance(part.position, snapPoint.transform.position);
+					if (distance < snapDistance)
+					{
+						if (distance < closestDistance)
+						{
+							closestDistance = distance;
+							if (closestSnapPoint != null)
+							{
+								// Disable the previous closest silhouette and renderer
+								closestSnapPoint.GetComponent<Outlinable>().enabled = false;
+								closestSnapPoint.GetComponent<MeshRenderer>().enabled = false;
+							}
+							closestSnapPoint = snapPointObj;
+						}
+					}
+					else
+					{
+						// Disable silhouette
+						if (outlinable != null && meshRenderer != null)
+						{
+							outlinable.enabled = false;
+							meshRenderer.enabled = false;
+						}
+					}
+				}
+			}
+
+			// Enable the silhouette
+			if (closestSnapPoint != null)
+			{
+				closestSnapPoint.GetComponent<Outlinable>().enabled = true;
+				closestSnapPoint.GetComponent<MeshRenderer>().enabled = true;
+			}
+		}
 		private IEnumerator ShowErrorFeedback(Transform part)
 		{
 			Outlinable outlinable = part.GetComponent<Outlinable>();
@@ -133,12 +199,12 @@ namespace PistonProject.Managers
 				{
 					StopCoroutine(errorFeedbackCoroutine);
 				}
-				// Enable the outline effect to show the error
+				// Enable the outline effect
 				outlinable.enabled = true;
 
 				yield return new WaitForSeconds(errorDisplayTime);
 
-				// Disable the outline effect after the error display time
+				// Disable the outline effect 
 				outlinable.enabled = false;
 				errorFeedbackCoroutine = null;
 			}
