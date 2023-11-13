@@ -122,15 +122,13 @@ namespace PistonProject.Managers
 				{
 					if (IsPartAssembled(forbiddenDisassembly.PartIdentifier))
 					{
-						// If a part that forbids disassembly of this part is assembled, then disassembly is not allowed.
+						//Not Allowed
 						return false;
 					}
 				}
-
 				// If none of the disassembly conditions are violated, allow disassembly.
 				return true;
 			}
-
 			// If the part is not found or not assembled, it can't be disassembled.
 			return false;
 		}
