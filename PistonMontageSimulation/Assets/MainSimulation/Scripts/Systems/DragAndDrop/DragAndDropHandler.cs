@@ -55,8 +55,8 @@ namespace PistonProject.Managers
 		{
 			if (objectToDrag != null)
 			{
-				objectRenderer.material.color = originalColor; // Restore the original color
-															   // Try to snap it into place when released
+				RevertColorOfRoot(objectToDrag); // Restore the original color
+												 // Try to snap it into place when released
 				SnapPoint snapPoint = objectToDrag.GetComponent<SnapPoint>();
 				if (snapPoint != null)
 				{
@@ -65,6 +65,15 @@ namespace PistonProject.Managers
 				objectToDrag = null;
 			}
 			isDragging = false;
+		}
+		private void RevertColorOfRoot(Transform root)
+		{
+			Renderer[] renderers = root.GetComponentsInChildren<Renderer>();
+			foreach (Renderer rend in renderers)
+			{
+				// Revert to original color
+				rend.material.color = originalColor; // Adjust this line to use the stored original colors
+			}
 		}
 
 		#endregion
@@ -107,16 +116,9 @@ namespace PistonProject.Managers
 			SnapPoint partSnapPoint = target.GetComponent<SnapPoint>();
 			if (partSnapPoint != null)
 			{
-				if (target.root != target)
-				{
-					objectToDrag = target.root;
-				}
-				else
-				{
-					objectToDrag = target;
-				}
+				objectToDrag = target.root != target ? target.root : target;
 			}
-			else if (partSnapPoint == null)
+			else
 			{
 				// If it doesn't have a SnapPoint, it's a free part
 				objectToDrag = target;
@@ -125,12 +127,26 @@ namespace PistonProject.Managers
 			if (objectToDrag != null)
 			{
 				offset = objectToDrag.position - GetMouseWorldPosition();
-				objectRenderer = objectToDrag.GetComponent<Renderer>();
-				originalColor = objectRenderer.material.color;
-				objectRenderer.material.color = Color.blue; // Highlight the object
+
+				// Change color of all renderers in the root object
+				ChangeColorOfRoot(objectToDrag, Color.blue);
+
 				isDragging = true;
 			}
 		}
+
+		private void ChangeColorOfRoot(Transform root, Color color)
+		{
+			// Retrieve all renderers from the root object and its children
+			Renderer[] renderers = root.GetComponentsInChildren<Renderer>();
+			foreach (Renderer rend in renderers)
+			{
+				// Store the original color in a dictionary if you want to revert back later
+				originalColor = rend.material.color; // You need to adjust this if you have multiple renderers
+				rend.material.color = color; // Change color to highlight
+			}
+		}
+
 
 		private bool TryGetTarget(out RaycastHit hit, string tag)
 		{

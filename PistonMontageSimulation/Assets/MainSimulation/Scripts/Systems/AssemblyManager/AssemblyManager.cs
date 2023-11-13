@@ -1,17 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace PistonProject.Managers
 {
 	public class AssemblyManager : Singleton<AssemblyManager>
 	{
 		[SerializeField] private List<AssemblyStep> assemblySteps;
+		public UnityEvent onAssemblyComplete;
 
 		private void Awake()
 		{
 			InitializeAssemblySteps();
 		}
-
 		private void InitializeAssemblySteps()
 		{
 			assemblySteps = new List<AssemblyStep>();
@@ -20,7 +22,7 @@ namespace PistonProject.Managers
 		private void SetupAssemblySteps()
 		{
 			// Create all steps
-			AssemblyStep piston = new AssemblyStep("piston", false);
+			AssemblyStep piston = new AssemblyStep("piston", true);
 			AssemblyStep rod = new AssemblyStep("rod", false);
 			AssemblyStep wrist_pin = new AssemblyStep("wrist_pin", false);
 			AssemblyStep pin_clip_1 = new AssemblyStep("pin_clip_1", false);
@@ -74,6 +76,9 @@ namespace PistonProject.Managers
 			if (step != null)
 			{
 				step.IsCompleted = isAssembled;
+
+				// After setting the part as assembled, check if the assembly is complete
+				CheckAssemblyComplete();
 			}
 		}
 		public bool IsPartAssembled(string partIdentifier)
@@ -128,6 +133,15 @@ namespace PistonProject.Managers
 
 			// If the part is not found or not assembled, it can't be disassembled.
 			return false;
+		}
+		private void CheckAssemblyComplete()
+		{
+			Debug.Log("CheckAssemblyComplete");
+			// If all parts are assembled, invoke the onAssemblyComplete event
+			if (assemblySteps.All(step => step.IsCompleted))
+			{
+				onAssemblyComplete?.Invoke();
+			}
 		}
 	}
 }
