@@ -12,7 +12,6 @@ public class InputHandler : MonoBehaviour
 	public UnityEvent onBeginDrag = new UnityEvent();
 	public UnityEvent onEndDrag = new UnityEvent();
 	public UnityEvent onBeginDisassemble = new UnityEvent();
-	public UnityEvent onEndDisassemble = new UnityEvent();
 
 	private void Awake()
 	{
@@ -27,7 +26,6 @@ public class InputHandler : MonoBehaviour
 		leftClickAction.canceled += _ => onEndDrag.Invoke();
 
 		rightClickAction.performed += _ => onBeginDisassemble.Invoke();
-		rightClickAction.canceled += _ => onEndDisassemble.Invoke();
 
 		middleClickAction.performed += _ => onBeginRotate.Invoke();
 		middleClickAction.canceled += _ => onEndRotate.Invoke();
@@ -41,7 +39,6 @@ public class InputHandler : MonoBehaviour
 
 		rightClickAction.Disable();
 		rightClickAction.performed -= _ => onBeginDisassemble.Invoke();
-		rightClickAction.canceled -= _ => onEndDisassemble.Invoke();
 
 		middleClickAction.Disable();
 		middleClickAction.performed -= _ => onBeginRotate.Invoke();

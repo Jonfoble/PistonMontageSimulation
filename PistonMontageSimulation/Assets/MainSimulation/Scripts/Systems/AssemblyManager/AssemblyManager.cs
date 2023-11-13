@@ -35,7 +35,6 @@ namespace PistonProject.Managers
 
 			// Define mandatory and forbidden assemblies
 			rod.AddForbiddenAssembly(wrist_pin);
-			// Define forbidden disassemblies: rod cannot be disassembled if wrist_pin is assembled
 			rod.AddForbiddenDisassembly(wrist_pin);
 
 			// Define forbidden assemblies and disassemblies for wrist_pin

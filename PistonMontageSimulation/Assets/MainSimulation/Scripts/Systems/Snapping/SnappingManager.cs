@@ -1,3 +1,4 @@
+using EPOOutline;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +10,9 @@ namespace PistonProject.Managers
 
 		[SerializeField] private float snapDistance = 0.5f;
 		[SerializeField] private GameObject[] snapPoints; // All the snap points
+		[SerializeField] private float errorDisplayTime = 0.5f; // How long to display the error color
+		private Coroutine errorFeedbackCoroutine;
+
 
 		private Transform selectedPart; // The part selected for potential disassembly
 		private string partIdentifierOfSelectedPart;
@@ -17,6 +21,7 @@ namespace PistonProject.Managers
 		{
 			if (!AssemblyManager.Instance.CanPartBeAssembled(partIdentifier))
 			{
+				errorFeedbackCoroutine = StartCoroutine(ShowErrorFeedback(part)); // Show visual feedback for error
 				return; // Cannot snap this part yet
 			}
 			float closestDistance = float.MaxValue;
@@ -56,6 +61,7 @@ namespace PistonProject.Managers
 				// Check if the part can be disassembled
 				if (!AssemblyManager.Instance.CanPartBeDisassembled(partIdentifier))
 				{
+					errorFeedbackCoroutine = StartCoroutine(ShowErrorFeedback(part));
 					return; // Cannot unsnap this part due to a forbidden condition
 				}
 				StartCoroutine(UnsnapPartFromPosition(part, partSnapPoint));
@@ -116,6 +122,25 @@ namespace PistonProject.Managers
 					partIdentifierOfSelectedPart = snapPoint.snapIdentifier;
 					selectedPart = hit.transform;
 				}
+			}
+		}
+		private IEnumerator ShowErrorFeedback(Transform part)
+		{
+			Outlinable outlinable = part.GetComponent<Outlinable>();
+			if (outlinable != null)
+			{
+				if (errorFeedbackCoroutine != null)
+				{
+					StopCoroutine(errorFeedbackCoroutine);
+				}
+				// Enable the outline effect to show the error
+				outlinable.enabled = true;
+
+				yield return new WaitForSeconds(errorDisplayTime);
+
+				// Disable the outline effect after the error display time
+				outlinable.enabled = false;
+				errorFeedbackCoroutine = null;
 			}
 		}
 	}

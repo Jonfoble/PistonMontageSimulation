@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 3999216967289227394}
   - component: {fileID: 5159118761314069478}
   - component: {fileID: 7744909247258876543}
+  - component: {fileID: 5266146383963783290}
+  - component: {fileID: 2559529787535406321}
   m_Layer: 0
   m_Name: piston
   m_TagString: Draggable
@@ -208,6 +210,75 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0008890004, y: 0.0007719957, z: 0.00024159523}
   m_Center: {x: 2.9774172e-10, y: 0.000013898829, z: 0.00013248611}
+--- !u!114 &5266146383963783290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2494216022648593759}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe91dc294731a9428c0941ea7579110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  complexMaskingMode: 0
+  drawingMode: 1
+  outlineLayer: 0
+  outlineTargets:
+  - IsVisible: 1
+    CutoutMask: 8
+    edgeDilateAmount: 5
+    frontEdgeDilateAmount: 5
+    backEdgeDilateAmount: 5
+    renderer: {fileID: 3999216967289227394}
+    SubmeshIndex: 0
+    BoundsMode: 0
+    Bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0.5, y: 0.5, z: 0.5}
+    CutoutThreshold: 0.5
+    CullMode: 2
+    cutoutTextureName: 
+    DilateRenderingMode: 0
+    cutoutTextureIndex: 0
+  renderStyle: 1
+  outlineParameters:
+    enabled: 1
+    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    dilateShift: 1
+    blurShift: 1
+    fillPass:
+      shader: {fileID: 0}
+      serializedProperties: []
+  backParameters:
+    enabled: 1
+    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    dilateShift: 1
+    blurShift: 1
+    fillPass:
+      shader: {fileID: 0}
+      serializedProperties: []
+  frontParameters:
+    enabled: 1
+    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    dilateShift: 1
+    blurShift: 1
+    fillPass:
+      shader: {fileID: 0}
+      serializedProperties: []
+--- !u!114 &2559529787535406321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2494216022648593759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3005361448287570632
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6125101682165299134}
   - component: {fileID: 7174084928007568614}
+  - component: {fileID: 3448893661162622458}
   m_Layer: 0
   m_Name: PinClipSnapPoint1
   m_TagString: Untagged
@@ -254,6 +326,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snapIdentifier: pin_clip_1
   isSnapped: 0
+--- !u!114 &3448893661162622458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005361448287570632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: pin_clip_2
+  isSnapped: 0
 --- !u!1 &6070607250202467396
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7261510246869062433}
   - component: {fileID: 1870786213666475611}
+  - component: {fileID: 6205823808305420703}
   m_Layer: 0
   m_Name: PinClipSnapPoint2
   m_TagString: Untagged
@@ -299,4 +386,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapIdentifier: pin_clip_2
+  isSnapped: 0
+--- !u!114 &6205823808305420703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070607250202467396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e377e9c30c87d245b337f999752d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapIdentifier: pin_clip_1
   isSnapped: 0

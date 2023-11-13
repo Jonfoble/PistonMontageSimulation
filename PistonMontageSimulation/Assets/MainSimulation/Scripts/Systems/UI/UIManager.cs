@@ -8,16 +8,20 @@ public class UIManager : MonoBehaviour
 	public TextMeshProUGUI assemblyCompleteText; 
 	public GameObject restartButton;
 	public GameObject exitButton;
-
-	private void OnEnable()
+	private void Awake()
 	{
-		AssemblyManager.Instance.onAssemblyComplete.AddListener(OnAssemblyComplete);
-		assemblyCompleteText.gameObject.SetActive(false); // Hide text initially
-		
+		// Hide text and buttons initially
+		assemblyCompleteText.gameObject.SetActive(false); 
+
 		if (restartButton != null)
 			restartButton.SetActive(false);
 		if (exitButton != null)
 			exitButton.SetActive(false);
+	}
+	private void OnEnable()
+	{
+		AssemblyManager.Instance.onAssemblyComplete.AddListener(OnAssemblyComplete);
+		
 	}
 
 	private void OnDisable()

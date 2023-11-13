@@ -1,3 +1,4 @@
+using EPOOutline;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,8 +11,6 @@ namespace PistonProject.Managers
 		private Camera mainCamera;
 		private Vector3 offset;
 		private Transform objectToDrag;
-		private Renderer objectRenderer;
-		private Color originalColor;
 		private bool isDragging;
 		private bool isRotating;
 
@@ -55,8 +54,8 @@ namespace PistonProject.Managers
 		{
 			if (objectToDrag != null)
 			{
-				RevertColorOfRoot(objectToDrag); // Restore the original color
-												 // Try to snap it into place when released
+				SetOutlineEffect(objectToDrag, false); // Close Outliner
+													   // Try to snap it into place when released
 				SnapPoint snapPoint = objectToDrag.GetComponent<SnapPoint>();
 				if (snapPoint != null)
 				{
@@ -65,15 +64,6 @@ namespace PistonProject.Managers
 				objectToDrag = null;
 			}
 			isDragging = false;
-		}
-		private void RevertColorOfRoot(Transform root)
-		{
-			Renderer[] renderers = root.GetComponentsInChildren<Renderer>();
-			foreach (Renderer rend in renderers)
-			{
-				// Revert to original color
-				rend.material.color = originalColor; // Adjust this line to use the stored original colors
-			}
 		}
 
 		#endregion
@@ -128,26 +118,24 @@ namespace PistonProject.Managers
 			{
 				offset = objectToDrag.position - GetMouseWorldPosition();
 
-				// Change color of all renderers in the root object
-				ChangeColorOfRoot(objectToDrag, Color.blue);
+				// Open Outliner
+				SetOutlineEffect(objectToDrag, true);
 
 				isDragging = true;
 			}
 		}
-
-		private void ChangeColorOfRoot(Transform root, Color color)
+		private void SetOutlineEffect(Transform root, bool shouldOutline)
 		{
-			// Retrieve all renderers from the root object and its children
-			Renderer[] renderers = root.GetComponentsInChildren<Renderer>();
-			foreach (Renderer rend in renderers)
+			// Retrieve the Outlinable component from the root object
+			Outlinable outlinable = root.GetComponent<Outlinable>();
+			if (outlinable != null)
 			{
-				// Store the original color in a dictionary if you want to revert back later
-				originalColor = rend.material.color; // You need to adjust this if you have multiple renderers
-				rend.material.color = color; // Change color to highlight
+				foreach (var childOutlinable in root.GetComponentsInChildren<Outlinable>())
+				{
+					childOutlinable.enabled = shouldOutline;
+				}
 			}
 		}
-
-
 		private bool TryGetTarget(out RaycastHit hit, string tag)
 		{
 			Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
